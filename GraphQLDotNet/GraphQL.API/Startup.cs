@@ -22,25 +22,23 @@ using Microsoft.Extensions.Logging;
 
 namespace GraphQL.API
 {
-    public class Startup
+    public sealed class Startup
     {
         public static readonly ILoggerFactory MyLoggerFactory
-= LoggerFactory.Create(builder => { builder.AddConsole(); });
+            = LoggerFactory.Create(builder => { builder.AddConsole(); });
 
         public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+            => Configuration = configuration;
 
         public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
+        
         public void ConfigureServices(IServiceCollection services)
         {
           
             services.AddControllers()
             .AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
             services.AddMvc(x => x.EnableEndpointRouting = false);
 
             services.AddDbContext<GraphQLContext>(
@@ -49,7 +47,10 @@ namespace GraphQL.API
                 UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
                                         x => x.MigrationsAssembly("GraphQL.API")));
 
-            services.AddScoped<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));      
+            services.AddScoped<IDependencyResolver>(s => 
+                               new FuncDependencyResolver(
+                                   s.GetRequiredService));      
+
             services.AddScoped<EmpresaSchema>();
             services.AddScoped<EmpresaQuery>();
             services.AddScoped<FuncionarioType>();
@@ -61,8 +62,7 @@ namespace GraphQL.API
             services.InitData();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {

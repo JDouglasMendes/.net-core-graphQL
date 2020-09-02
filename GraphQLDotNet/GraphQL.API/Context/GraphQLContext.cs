@@ -10,24 +10,24 @@ namespace GraphQL.API.Context
         : base(options)
         { }
 
-        public DbSet<Cargo> Cargos { get; set; }
-        public DbSet<Funcionario> Funcionario { get; set; }
+        public DbSet<Role> Cargos { get; set; }
+        public DbSet<Employee> Funcionario { get; set; }
         public DbSet<Dependente> Dependentes { get; set; }
-        public DbSet<Contrato> Contratos { get; set; }
+        public DbSet<Contracts> Contratos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Cargo>()
+            modelBuilder.Entity<Role>()
                 .HasMany(x => x.Funcionarios)
-                .WithOne(x => x.Cargo);
+                .WithOne(x => x.Role);
 
-            modelBuilder.Entity<Funcionario>()
+            modelBuilder.Entity<Employee>()
                 .HasMany(x => x.Dependentes)
                 .WithOne(x => x.Funcionario);
 
-            modelBuilder.Entity<Funcionario>()
-                .HasMany(x => x.Contratos)
-                .WithOne(x => x.Funcionario);
+            modelBuilder.Entity<Employee>()
+                .HasMany(x => x.Contracts)
+                .WithOne(x => x.Employee);
 
             base.OnModelCreating(modelBuilder);
         }               

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GraphQL.API.Models
 {
-    public class Cargo
+    public class Role
     {
         [Key]
         public Guid Id { get; set; }
@@ -13,6 +13,6 @@ namespace GraphQL.API.Models
         [Required]
         public string Descricao { get; set; }
 
-        public List<Funcionario> Funcionarios {get;set;}
+        public List<Employee> Funcionarios {get;set;}
     }
 }

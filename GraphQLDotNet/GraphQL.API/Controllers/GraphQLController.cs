@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using GraphQL.API.GraphQL.Queries;
+﻿using GraphQL.API.GraphQL.Queries;
 using GraphQL.API.GraphQL.Schemas;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace GraphQL.API.Controllers
 {
@@ -15,21 +11,19 @@ namespace GraphQL.API.Controllers
     {
         private readonly EmpresaSchema _schema;
 
-
         public GraphQLController(EmpresaSchema schema)
         {
             _schema = schema;
         }
+
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] GraphQLQuery query)
         {
             var inputs = query.Variables.ToInputs();
 
-            var schema = _schema;
-
             var result = await new DocumentExecuter().ExecuteAsync(_ =>
             {
-                _.Schema = schema;
+                _.Schema = _schema;
                 _.Query = query.Query;
                 _.OperationName = query.OperationName;
                 _.Inputs = inputs;
@@ -42,6 +36,5 @@ namespace GraphQL.API.Controllers
 
             return Ok(result);
         }
-
     }
 }

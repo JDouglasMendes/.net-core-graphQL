@@ -15,7 +15,7 @@ namespace GraphQL.API.Models
         public DateTime DataNascimento { get; set; }
 
         [ForeignKey(nameof(FuncionarioId))]
-        public Funcionario Funcionario { get; set; }
+        public Employee Funcionario { get; set; }
         public Guid FuncionarioId { get; set; }
     }
 }

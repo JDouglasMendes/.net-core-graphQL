@@ -1,15 +1,13 @@
-﻿using GraphQL.API.Models;
+﻿using Codeizi.DI.Helper.Anotations;
+using GraphQL.API.Models;
 using GraphQL.Types;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace GraphQL.API.GraphQL.Types
 {
-    public class CargoType : ObjectGraphType<Cargo>
+    [Injectable]
+    public class RoleType : ObjectGraphType<Role>
     {
-        public CargoType()
+        public RoleType()
         {
             Name = "cargo";
             Field(x => x.Id, type: typeof(IdGraphType)).Description("Id Cargo");

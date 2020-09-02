@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Codeizi.DI.AspNetCore;
 using GraphiQl;
 using GraphQL.API.Context;
 using GraphQL.API.GraphQL.InputTypes;
@@ -10,10 +7,8 @@ using GraphQL.API.GraphQL.Queries;
 using GraphQL.API.GraphQL.Schemas;
 using GraphQL.API.GraphQL.Types;
 using GraphQL.API.Utils;
-using GraphQL.Types;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,10 +26,9 @@ namespace GraphQL.API
             => Configuration = configuration;
 
         public IConfiguration Configuration { get; }
-        
+
         public void ConfigureServices(IServiceCollection services)
         {
-          
             services.AddControllers()
             .AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
@@ -47,17 +41,12 @@ namespace GraphQL.API
                 UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
                                         x => x.MigrationsAssembly("GraphQL.API")));
 
-            services.AddScoped<IDependencyResolver>(s => 
+            services.AddScoped<IDependencyResolver>(s =>
                                new FuncDependencyResolver(
-                                   s.GetRequiredService));      
+                                   s.GetRequiredService));
+  
 
-            services.AddScoped<EmpresaSchema>();
-            services.AddScoped<EmpresaQuery>();
-            services.AddScoped<FuncionarioType>();
-            services.AddScoped<CargoType>();
-            services.AddScoped<CargoInputType>();
-            services.AddScoped<FuncionarioInputType>();
-            services.AddScoped<EmpresaMutation>();
+            services.AddInjectables(this.GetType().Assembly);
 
             services.InitData();
         }
@@ -67,7 +56,7 @@ namespace GraphQL.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-            }           
+            }
             app.UseGraphiQl();
             app.UseMvc();
         }

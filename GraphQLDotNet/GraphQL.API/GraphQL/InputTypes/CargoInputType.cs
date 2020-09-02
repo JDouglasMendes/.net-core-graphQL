@@ -1,17 +1,15 @@
-﻿using GraphQL.Types;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Codeizi.DI.Helper.Anotations;
+using GraphQL.Types;
 
 namespace GraphQL.API.GraphQL.InputTypes
 {
+    [Injectable]
     public class CargoInputType : InputObjectGraphType
     {
         public CargoInputType()
         {
             Name = "CargoInput";
-            Field<NonNullGraphType<StringGraphType>>("descricao");            
+            Field<NonNullGraphType<StringGraphType>>("descricao");
         }
     }
 }

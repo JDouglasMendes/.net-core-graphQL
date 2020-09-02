@@ -1,14 +1,12 @@
-﻿using GraphQL.Types;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Codeizi.DI.Helper.Anotations;
+using GraphQL.Types;
 
 namespace GraphQL.API.GraphQL.InputTypes
 {
-    public class FuncionarioInputType : InputObjectGraphType
+    [Injectable]
+    public class EmployeeInputType : InputObjectGraphType
     {
-        public FuncionarioInputType()
+        public EmployeeInputType()
         {
             Name = "FuncionarioInput";
             Field<NonNullGraphType<StringGraphType>>("nome");

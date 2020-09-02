@@ -4,17 +4,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GraphQL.API.Models
 {
-    public class Funcionario
+    public class Employee
     {
         public Guid Id { get; set; }
-        public string Nome { get; set; }
+        public string Name { get; set; }
         public string CPF { get; set; }
 
-        public List<Contrato> Contratos { get; set; }
+        public List<Contracts> Contracts { get; set; }
         public List<Dependente> Dependentes { get; set; }
 
-        [ForeignKey(nameof(CargoId))]
-        public virtual Cargo Cargo { get; set; }
-        public Guid CargoId { get; set; }
+        [ForeignKey(nameof(RoleId))]
+        public virtual Role Role { get; set; }
+        public Guid RoleId { get; set; }
     }
 }

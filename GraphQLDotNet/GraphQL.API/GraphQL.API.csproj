@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Codeizi.DI" Version="1.0.0" />
     <PackageReference Include="graphiql" Version="2.0.0" />
     <PackageReference Include="GraphQL" Version="2.4.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.7" />

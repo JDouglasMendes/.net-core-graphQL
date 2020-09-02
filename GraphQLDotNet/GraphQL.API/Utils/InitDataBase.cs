@@ -17,17 +17,17 @@ namespace GraphQL.API.Utils
             {
                 var idCargo = Guid.NewGuid();
 
-                context.Cargos.Add(new Cargo
+                context.Cargos.Add(new Role
                 {
                     Id = idCargo,
                     Descricao = "Programador",
                 });
 
-                context.Funcionario.Add(new Funcionario
+                context.Funcionario.Add(new Employee
                 {
                    Id = Guid.NewGuid(),
-                   CargoId = idCargo,
-                   Nome = "Funcionario 1",
+                   RoleId = idCargo,
+                   Name = "Funcionario 1",
                    CPF = "000.000.000-00",                   
                 });
 
